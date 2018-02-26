@@ -7,8 +7,6 @@ class Jack:
 	def __init__(self, r, p):
 		self.r = r
 		self.p = p
-	def __str__(self):
-		return str(self.r) + "and" + str(self.p)
 	def getR(self):
 		return self.r
 	def getP(self):
