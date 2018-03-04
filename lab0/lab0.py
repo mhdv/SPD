@@ -29,26 +29,19 @@ q=0
 for v in range(m):
 	for i in range(n):
                 if v==0:
-                        #print 'from',cmax_tab[v],'to',
                         cmax_tab[v]+=array[i][v]
-                        #print cmax_tab[v]
                         cmax_after[i][0]=cmax_tab[v]
                 elif i==0 and not v==0:
                         q=v
                         while not q==-1:
-                               # print 'from',cmax_tab[v],'to',
                                 cmax_tab[v]+=array[0][q]
-                                #print cmax_tab[v]
                                 cmax_after[i][v]=cmax_tab[v]
                                 q-=1
                 else:
                         
                         tmp1=max(cmax_tab[v],cmax_after[i][v-1])
-                        #print 'from',cmax_tab[v],'to',
                         cmax_tab[v]+=(tmp1-cmax_tab[v])+array[i][v]
-                        #print cmax_tab[v]
                         cmax_after[i][v]=cmax_tab[v]
-                        #print cmax_tab[v], '(dodano element ', array[i][v],')'
                         
 print(cmax_tab)
 print 'Najkrotszy czas wykonania to',max(cmax_tab)
