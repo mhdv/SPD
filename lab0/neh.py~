@@ -23,20 +23,21 @@ for i,line in enumerate(file):
 		for v in range(m):
 			array[i-1][v] = int(line.split()[v])
 			
-time = 0
 c = 0
-q=0
+q = 0
 
-perms=list(itertools.permutations(array))
-cmax_total=0;
+cmax_total = 0;
 
-array=perms[0]
+cmax_tab=[0 for x in range(m)]
 
-for p in range(len(perms)):
-        array=perms[p]
-        cmax_tab=[0 for x in range(m)]
+
+
+array.sort(key=sum, reverse=True)
+print array
+
+def cmax(inp_array):
         for v in range(m):
-	        for i in range(n):
+                for i in range(n):
                         if v==0:
                                 cmax_tab[v]+=array[i][v]
                                 cmax_after[i][0]=cmax_tab[v]
@@ -48,12 +49,22 @@ for p in range(len(perms)):
                                         q-=1
                         else:
                         
-                                        tmp1=max(cmax_tab[v],cmax_after[i][v-1])
-                                        cmax_tab[v]+=(tmp1-cmax_tab[v])+array[i][v]
-                                        cmax_after[i][v]=cmax_tab[v]
-        if p==0:
-                cmax_total=max(cmax_tab)
-        else:
-                cmax_total=min(cmax_total,max(cmax_tab))
+                                tmp1=max(cmax_tab[v],cmax_after[i][v-1])
+                                cmax_tab[v]+=(tmp1-cmax_tab[v])+array[i][v]
+                                cmax_after[i][v]=cmax_tab[v]
+        return max(cmax_tab)
+                        
+array_new=[[0 for x in range(n)] for y in range(m)]
 
-print 'Najkrotszy czas wykonania to',cmax_total
+
+for x in range(n):
+        if not x==0:
+                for y in range(m):
+                        array_new[y][x]=array[y][x]
+                for z in range(x+1):
+                        array_tmp=array_new
+                        array_tmp.insert(z, [array[x+1]])
+
+#print array_new
+
+print 'Najkrotszy czas wykonania to', cmax(array)
